@@ -1,9 +1,10 @@
 from django.core.exceptions import ValidationError
 
+
 class LicenseNumberValidationMixin:
 
     def clean_license_number(self):
-        if hasattr(self, 'cleaned_data'):
+        if hasattr(self, "cleaned_data"):
             license_num = self.cleaned_data.get("license_number")
             if not license_num[:3].isupper() or not license_num[:3].isalpha():
                 raise ValidationError(
@@ -14,4 +15,3 @@ class LicenseNumberValidationMixin:
                 raise ValidationError("Last 5 characters must be digits.")
 
             return license_num
-        raise ValidationError("This method should only be called from a form with cleaned_data.")
